@@ -7,7 +7,7 @@ import uvicorn
 
 app = FastAPI(
     title="PrivateGPT Enterprise",
-    description="Production RAG system — chat with your documents, source-cited, zero hallucination.",
+    description="Production RAG system. Chat with your documents. Source-cited. Zero hallucination.",
     version="1.0.0"
 )
 
@@ -28,7 +28,7 @@ async def upload_document(file: UploadFile = File(...)):
         raise HTTPException(status_code=400, detail="Only PDF, TXT, DOCX supported.")
     contents = await file.read()
     result = ingest_document(contents, file.filename)
-    return {"message": f"Document indexed successfully.", "chunks": result["chunks"]}
+    return {"message": "Document indexed.", "chunks": result["chunks"]}
 
 @app.post("/query", response_model=QueryResponse)
 def query(request: QueryRequest):
